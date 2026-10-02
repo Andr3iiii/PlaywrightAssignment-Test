@@ -16,7 +16,7 @@ test('should be able to delete a todo task', async ({ page }) => {
 
         await demoPage.deleteTodo(todoName);
         await expect(demoPage.getTodoTask(todoName)).not.toBeVisible();
+        await expect(demoPage.itemsLeft).toHaveCount(0);
     }
 
-    await expect(demoPage.itemsLeft).toHaveText('0 items left');
 })
