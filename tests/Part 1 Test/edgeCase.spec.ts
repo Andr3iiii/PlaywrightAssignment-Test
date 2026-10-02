@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { demoTestPage } from '../../pages/demoTestPage';
+import { todoData } from '../../data/todoData';
 
 test('Should remove the todo task when it is edited as empty value', async ({ page }) => {
 
@@ -7,15 +8,27 @@ test('Should remove the todo task when it is edited as empty value', async ({ pa
 
     await demoPage.gotoPage();
 
-    await demoPage.addingTodo('edit this task');
+    for (const todoInput of todoData) {
+        await demoPage.addingTodo(todoInput);
+        await expect(
+            demoPage.getTodoTask(todoInput)
+        ).toBeVisible();
+    }
 
-    await demoPage.editTodo('edit this task', '');
+    const dataToEdit = todoData[4];
+
+    await demoPage.editTodo(dataToEdit, '');
+
 
     await expect(
-        demoPage.getTodoTask('edit this task')
+        demoPage.getTodoTask(dataToEdit)
     ).not.toBeVisible();
 
     await expect(
+        demoPage.items
+    ).toHaveCount(todoData.length - 1);
+
+    await expect(
         demoPage.itemsLeft
-    ).toHaveCount(0);
+    ).toHaveText(`${todoData.length - 1} items left`);
 })
