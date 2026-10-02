@@ -1,6 +1,6 @@
 export const todoData = [
     'Mwhehehehehe',
-    // 'Mwhehehehehe',
+    // 'Mwhehehehehe', should be error when 2 similar value/input is added
     'HAHAHAHAHAHAAHA',
     'Gonna Buy Some Snacks Later 5pm',
     'Prepare for the final Interview',
